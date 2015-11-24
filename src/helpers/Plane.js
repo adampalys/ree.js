@@ -6,7 +6,7 @@
 
   REE.PlaneHelper = function(config) {
 
-    REE.Helper.call(this, config);
+    REE.call(this, config, THREE.Object3D);
 
     Object.defineProperties(this, {
       '_planeHelper': {value: new THREE.Mesh(
@@ -21,8 +21,7 @@
 
   };
 
-  REE.PlaneHelper.prototype = Object.create(REE.Helper.prototype);
-  REE.PlaneHelper.prototype.constructor = REE.PlaneHelper;
+  REE.create(REE.PlaneHelper, THREE.Object3D);
 
   REE.PlaneHelper.prototype.lookAt = function(vector) {
     this._planeHelper.lookAt(vector);

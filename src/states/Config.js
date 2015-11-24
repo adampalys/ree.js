@@ -6,9 +6,11 @@
 
   'use strict';
 
-  REE.Register({
-    is: 'ConfigState',
-    properties: {
+  REE.ConfigState = function(config) {
+
+    REE.call(this, config);
+
+    this.registerProperties({
       clearColor: {
         value: '#222222',
         type: String,
@@ -81,10 +83,10 @@
         notify: true,
         persist: true
       }
-    },
-    ready: function() {
-      console.log('' + this, 'ready');
-    }
-  });
+    });
+
+  };
+
+  REE.create(REE.ConfigState);
 
 }());

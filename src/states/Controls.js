@@ -8,7 +8,8 @@
 
   REE.ControlsState = function(config) {
 
-    REE.Element.call(this, config);
+    REE.call(this, config);
+    // REE.Element.prototype.extend(this, config);
 
     Object.defineProperties(this, {
       '_name': {value: '', writable: true}
@@ -53,8 +54,7 @@
 
   };
 
-  REE.ControlsState.prototype = Object.create(REE.Element.prototype);
-  REE.ControlsState.prototype.constructor = REE.ControlsState;
+  REE.create(REE.ControlsState);
 
   REE.ControlsState.prototype._selectorChanged = function() {
     var name = this.selector.split(':')[0];

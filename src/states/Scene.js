@@ -4,10 +4,10 @@
 
 (function() {
 
-  REE.SceneState = function(parameters) {
+  REE.SceneState = function(config) {
 
-    THREE.Scene.call(this);
-    REE.Element.call(this, parameters);
+    REE.call(this, config, THREE.Scene);
+    // REE.Element.prototype.extend(this, config, THREE.Scene);
 
     this.registerProperties({
       _helpers: {
@@ -19,19 +19,6 @@
 
   };
 
-  REE.SceneState.prototype = Object.create(THREE.Scene.prototype);
-  REE.SceneState.prototype.constructor = REE.SceneState;
-
-  REE.SceneState.prototype.registerProperty = REE.Element.prototype.registerProperty;
-  REE.SceneState.prototype.registerProperties = REE.Element.prototype.registerProperties;
-  REE.SceneState.prototype.bindProperty = REE.Element.prototype.bindProperty;
-  REE.SceneState.prototype.dispose = REE.Element.prototype.dispose;
-  REE.SceneState.prototype.debounce = REE.Element.prototype.debounce;
-  REE.SceneState.prototype.addEventListener = REE.Element.prototype.addEventListener;
-  REE.SceneState.prototype.removeEventListener = REE.Element.prototype.removeEventListener;
-  REE.SceneState.prototype.dispatchEvent = REE.Element.prototype.dispatchEvent;
-  REE.SceneState.prototype._setPersistedValue = REE.Element.prototype._setPersistedValue;
-  REE.SceneState.prototype._getPersistedValue = REE.Element.prototype._getPersistedValue;
-  REE.SceneState.prototype._uuidChanged = REE.Element.prototype._uuidChanged;
+  REE.create(REE.SceneState, THREE.Scene);
 
 }());

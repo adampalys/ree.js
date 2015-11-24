@@ -46,7 +46,8 @@
 
   REE.CamerasState = function(config) {
 
-    REE.Element.call(this, config);
+    REE.call(this, config);
+    // REE.Element.prototype.extend(this, config);
 
     this.registerProperties({
       persp: {
@@ -85,9 +86,6 @@
 
   };
 
-  REE.CamerasState.prototype = Object.create(REE.Element.prototype);
-  REE.CamerasState.prototype.constructor = REE.CamerasState;
-
-  REE.CamerasState.prototype.update = function() {};
+  REE.create(REE.CamerasState);
 
 }());

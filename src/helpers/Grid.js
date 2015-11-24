@@ -15,7 +15,7 @@
 
   REE.GridHelper = function(config) {
 
-    REE.Helper.call(this, config);
+    REE.call(this, config, THREE.Object3D);
 
     this.registerProperties({
       showAxis: {
@@ -65,8 +65,7 @@
     this.update();
   };
 
-  REE.GridHelper.prototype = Object.create(REE.Helper.prototype);
-  REE.GridHelper.prototype.constructor = REE.GridHelper;
+  REE.create(REE.GridHelper, THREE.Object3D);
 
   REE.GridHelper.prototype.updateGrid = function() {
     var gridhelper = new THREE.GridHelper(this.gridSize * this.gridWidth, this.gridSize);

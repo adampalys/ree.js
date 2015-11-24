@@ -16,7 +16,7 @@
       '_listeners': {value: {}},
       '_parents': {value: []},
       '_children': {value: {}},
-      '_ready': {value: false, writable: true},
+      '_ready': {value: false, writable: true}
     });
 
     this.registerProperties({

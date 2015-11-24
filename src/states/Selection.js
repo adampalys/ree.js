@@ -9,9 +9,9 @@
   var tempBox = new THREE.Box3();
   var object;
 
-  REE.SelectionState = function(parameters) {
+  REE.SelectionState = function(config) {
 
-    REE.Element.call(this, parameters);
+    REE.call(this, config);
 
     this.registerProperties({
 
@@ -38,8 +38,7 @@
     });
   };
 
-  REE.SelectionState.prototype = Object.create(REE.Element.prototype);
-  REE.SelectionState.prototype.constructor = REE.SelectionState;
+  REE.create(REE.SelectionState);
 
   REE.SelectionState.prototype.clear = function() {
 
