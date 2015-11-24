@@ -8,7 +8,7 @@
 
   REE.ControlsState = function(config) {
 
-    REE.call(this, config);
+    Carbon.call(this, config);
     // REE.Element.prototype.extend(this, config);
 
     Object.defineProperties(this, {
@@ -54,7 +54,7 @@
 
   };
 
-  REE.create(REE.ControlsState);
+  Carbon.create(REE.ControlsState);
 
   REE.ControlsState.prototype._selectorChanged = function() {
     var name = this.selector.split(':')[0];

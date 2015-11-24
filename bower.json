@@ -2,6 +2,7 @@
   "name": "ree.js",
   "private": false,
   "dependencies": {
+    "carbon.js": "arodic/carbon.js#~0.0.1",
     "three-js": "arodic/three-js#~1.2.1"
   }
 }

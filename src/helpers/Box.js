@@ -6,7 +6,7 @@
 
   REE.BoxHelper = function(config) {
 
-    REE.call(this, config, THREE.Object3D);
+    Carbon.call(this, config, THREE.Object3D);
 
     Object.defineProperties(this, {
       '_bboxHelper': {value: new THREE.BoxHelper(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1, 1, 1, 1)))}
@@ -17,6 +17,6 @@
 
   };
 
-  REE.create(REE.BoxHelper, THREE.Object3D);
+  Carbon.create(REE.BoxHelper, THREE.Object3D);
 
 }());

@@ -8,7 +8,7 @@
 
   REE.ConfigState = function(config) {
 
-    REE.call(this, config);
+    Carbon.call(this, config);
 
     this.registerProperties({
       clearColor: {
@@ -87,6 +87,6 @@
 
   };
 
-  REE.create(REE.ConfigState);
+  Carbon.create(REE.ConfigState);
 
 }());

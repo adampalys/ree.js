@@ -32,7 +32,7 @@
 
   REE.Control = function(config) {
 
-    REE.Element.call(this, config);
+    Carbon.call(this, config);
 
     Object.defineProperties(this, {
       'helper': {
@@ -525,8 +525,7 @@
 
   };
 
-  REE.Control.prototype = Object.create(REE.Element.prototype);
-  REE.Control.prototype.constructor = REE.Control;
+  Carbon.create(REE.Control);
 
   REE.Control.prototype.begin = function() {
 

@@ -18,3 +18,90 @@ The core ideas in this framework originate from attempts to build complex 3D app
 ### Core Concepts ###
 
 The core concept of this framework is embodied in [REE.Element](https://github.com/arodic/ree.js/blob/master/src/core/Element.js) class. It is essentially a JavaScript object/entity with data binding, event system, and type checking for it's properties. Additionally, if `uuid` property is set, the objects have the ability to persist property values between browsing sessions. Data binding can be expressed both imperatively and declaratively. Events propagate through complex element hierarchies the same way they propagate in DOM. Property persistence is currently only supported with localStorage and basic data types.
+
+### Usage ###
+
+REE provides a simple way to create hierarchically composable JavaScript Elements with features such as
+data binding (declarative and imperative), events, listeners and well as type checking.
+It is inspired by Polymer.js and intended to be used with custom (Polymer) elements.
+
+###### Basic Example ######
+
+Here is the simplest way to define `REE.MyElement` with property called `myProp`:
+
+```javascript
+REE.MyElement = function(config) {
+
+  REE.call(this, config);
+
+  this.registerProperties({
+    myProp: {}
+  });
+
+};
+
+REE.create(REE.MyElement);
+```
+then you can create instances and assign values in the constructor.
+
+```javascript
+var myElementInstance = new REE.MyElement({myProp: 'hello world'})
+
+```
+
+
+###### Properties ######
+
+Similarly to Polymer.js, you can configure property type, observers and more.
+
+```javascript
+myProp: {
+  value: 1337, // default value.
+  type: Number, // strict type.
+  observer: '_myPropChanged', // change observer function.
+  writable: false, // make property read-only.
+  persist: true, // persist value in localStorage.
+  enumerable: false, // make non-enumerable.
+  notify: true // fire 'myProp-changed' event on change.
+}
+```
+
+All of the above configurations are optional. `persist` will work only if `uuid` property is set on corresponding element instance.
+
+###### Data Binding ######
+
+Imperative data binding uses the same syntax as Polymer (0.5). If both source and target elements have the property value defined, the target will have the property assigned from the source.
+
+```javascript
+myElement.bindProperty('myProp', otherElement, 'otherProp');
+```
+
+For declarative data binding, simply pass `[elementInstance, propertyName]` array to the property in the constructor. For example:
+
+```javascript
+var myElementInstance = new REE.MyElement({
+  myProp: [otherElement, 'otherProp']
+});
+
+```
+
+###### Events ######
+
+If `notify` flag is set, property element instance will fire `[property-name]-changed` event. The event will also fire if property has been bound. Note that camelCase names are converted to dash-notation for event names.
+
+```javascript
+myElementInstance.addEventListener('my-prop-changed', function(event){
+  console.log(event);
+});
+```
+
+Deep bubbling events path prefix is added using dot notation. You can also catch multiple events using wildcards.
+
+```javascript
+myElementInstance.addEventListener('myProp.*-changed', function(event){
+  console.log('Changed key is:' event.key);
+  console.log('Old value is:' event.oldValue);
+  console.log('New value is:' event.value);
+  console.log('event type is:' event.type);
+});
+```

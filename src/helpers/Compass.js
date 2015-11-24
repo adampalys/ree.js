@@ -9,7 +9,7 @@
 
   REE.CompassHelper = function(config) {
 
-    REE.call(this, config, THREE.Object3D);
+    Carbon.call(this, config, THREE.Object3D);
 
     this.registerProperties({
       axis: {
@@ -37,7 +37,7 @@
 
   };
 
-  REE.create(REE.CompassHelper, THREE.Object3D);
+  Carbon.create(REE.CompassHelper, THREE.Object3D);
 
   REE.CompassHelper.prototype.update = function(camera) {
 

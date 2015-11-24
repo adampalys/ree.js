@@ -46,7 +46,7 @@
 
   REE.CamerasState = function(config) {
 
-    REE.call(this, config);
+    Carbon.call(this, config);
     // REE.Element.prototype.extend(this, config);
 
     this.registerProperties({
@@ -86,6 +86,6 @@
 
   };
 
-  REE.create(REE.CamerasState);
+  Carbon.create(REE.CamerasState);
 
 }());

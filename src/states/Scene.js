@@ -6,8 +6,7 @@
 
   REE.SceneState = function(config) {
 
-    REE.call(this, config, THREE.Scene);
-    // REE.Element.prototype.extend(this, config, THREE.Scene);
+    Carbon.call(this, config, THREE.Scene);
 
     this.registerProperties({
       _helpers: {
@@ -19,6 +18,6 @@
 
   };
 
-  REE.create(REE.SceneState, THREE.Scene);
+  Carbon.create(REE.SceneState, THREE.Scene);
 
 }());

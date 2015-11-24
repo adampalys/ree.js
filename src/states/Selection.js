@@ -11,7 +11,7 @@
 
   REE.SelectionState = function(config) {
 
-    REE.call(this, config);
+    Carbon.call(this, config);
 
     this.registerProperties({
 
@@ -38,7 +38,7 @@
     });
   };
 
-  REE.create(REE.SelectionState);
+  Carbon.create(REE.SelectionState);
 
   REE.SelectionState.prototype.clear = function() {
 
