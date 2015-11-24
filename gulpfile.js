@@ -38,7 +38,7 @@
         inlineScripts: true
       }))
       .on('error', function(e) {
-        console.log(e)
+        console.log(e);
       })
       .pipe($.rename('ree.html'))
       .pipe($.minifyInline())
@@ -50,6 +50,18 @@
       .pipe($.size({title: 'vulcanize'}));
   });
 
+  // Commit to dist branch
+  gulp.task('dist', function () {
+    return gulp.src([
+      'dist/**/*',
+      'README.md',
+      'LICENSE',
+      '.bowerrc',
+      'bower.json',
+      'package.json'
+    ])
+    .pipe($.ghPages({ branch: 'dist', force: true }));
+  });
   // Lint JavaScript
   gulp.task('lint', function() {
     return gulp.src([
