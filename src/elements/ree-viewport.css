@@ -1,0 +1,50 @@
+:host {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+:host .viewport {
+  float: left;
+}
+
+#player {
+  position: fixed;
+  top: 0;
+  left: 0;
+  cursor: crosshair;
+}
+#player:focus {
+  outline: 0;
+}
+
+:host([playing]) .viewport {
+  display: none;
+}
+:host(:not([playing])) #player {
+  display: none;
+}
+
+:host(.fullquad) .viewport:not(.fullquad) {
+  display: none;
+}
+
+#player ::content ree-button {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+
+.viewport ::content ree-button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

@@ -1,0 +1,147 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../iron-selector/iron-selector.html">
+
+<link rel="import" href="../../iron-icons/iron-icons.html">
+<link rel="import" href="../../iron-icons/image-icons.html">
+<link rel="import" href="../../iron-icons/av-icons.html">
+
+<link rel="import" href="../../three-js/three-js.html">
+
+<link rel="import" href="../../io-help/io-help.html">
+<link rel="import" href="../../io-help/io-help-line.html">
+<link rel="import" href="../../io-inspector/io-inspector.html">
+
+<link rel="import" href="../../three-viewport/three-viewport.html">
+
+<link rel="import" href="js/ree.html">
+
+<link rel="import" href="elements/ree-viewport.html">
+<link rel="import" href="elements/ree-button.html">
+<link rel="import" href="elements/_io-config.html">
+
+<!--
+Three.js editor.
+
+@demo demo/index.html Basic Demo
+-->
+<dom-module id="ree-app">
+  <link rel="import" type="css" href="ree-app.css">
+  <template>
+    <div id="header"></div>
+    <div id="middle">
+      <div id="leftsidebar">
+        <ree-button true="av:stop" false="av:play-arrow" value="{{playing}}"></ree-button>
+        <iron-selector selected="{{controlSelector}}" attr-for-selected="value">
+          <ree-icon icon="three:move" value="transform:translate"></ree-icon>
+          <ree-icon icon="three:rotate" value="transform:rotate"></ree-icon>
+          <ree-icon icon="three:scale" value="transform:scale"></ree-icon>
+          <ree-icon icon="three:geometry-cube" value="sphere"></ree-icon>
+          <ree-icon icon="create" value="line"></ree-icon>
+        </iron-selector>
+      </div>
+      <div id="center">
+        <ree-viewport
+            id="viewport"
+            scene="{{scene}}"
+            controls="{{controls}}"
+            cameras="{{cameras}}"
+            playing="{{playing}}">
+        </ree-viewport>
+      </div>
+      <div id="rightsidebar">
+        <io-inspector id="inspector"></io-inspector>
+      </div>
+    </div>
+    <io-help-line id="footer"></io-help-line>
+  </template>
+</dom-module>
+<script>
+(function() {
+
+  var config = new REE.ConfigState();
+
+  var scene = new REE.SceneState();
+
+  var cameras = new REE.CamerasState();
+
+  var controls = new REE.ControlsState({
+    'scene': scene,
+    'snapDistance': [config, 'gridSize'],
+    'snapAngle': [config, 'snapAngle']
+  });
+
+  var grid = new REE.GridHelper({
+    'showAxis': [config, 'showAxis'],
+    'axisSize': [config, 'axisSize'],
+    'showGrid': [config, 'showGrid'],
+    'gridSize': [config, 'gridSize'],
+    'gridWidth': [config, 'gridWidth'],
+    'gridColor1': [config, 'gridColor1'],
+    'gridColor2': [config, 'gridColor2']
+  });
+  scene._helpers.add(grid);
+
+  var compass = new REE.CompassHelper({
+    'size': [config, 'compassSize'],
+    'visible': [config, 'showCompass']
+  });
+  scene._helpers.add(compass);
+
+  Polymer({
+    is: 'ree-app',
+    properties: {
+      config: {
+        value: config,
+        type: THREE.ConfigState
+      },
+      scene: {
+        value: scene,
+        type: THREE.SceneState
+      },
+      cameras: {
+        value: cameras,
+        type: REE.CamerasState
+      },
+      controls: {
+        value: controls,
+        type: REE.ControlsState
+      },
+      controlSelector: {
+        type: String,
+        notify: true
+      },
+      playing: {
+        value: false,
+        type: Boolean,
+        reflectToAttribute: true
+      }
+    },
+    ready: function() {
+      config.bindProperty('clearColor', this.$.viewport, 'clearColor');
+      config.bindProperty('showHelpers', this.$.viewport, 'showHelpers');
+
+      controls.bindProperty('selector', this, 'controlSelector');
+
+      this.$.inspector.value = config;
+
+      controls.addEventListener('*.selection-changed', function(event) {
+        this.$.inspector.value = event.value.objects[0] || config;
+      }.bind(this));
+
+      controls.addEventListener('control-changed', function(event) {
+        this.$.inspector.value = event.value || config;
+      }.bind(this));
+
+      controls.addEventListener('*render', function(event) {
+        this.$.viewport.renderAction(event);
+      }.bind(this));
+
+      config.addEventListener('*', function() {
+        this.$.viewport.render();
+      }.bind(this));
+
+    }
+  });
+}());
+</script>

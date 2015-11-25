@@ -1,0 +1,72 @@
+:host {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  position: absolute;
+  overflow: hidden;
+  @apply(--layout-vertical);
+  @apply(--layout-fit);
+
+  background: #333333;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+}
+
+#header {
+ border-bottom: 1px solid #444;
+}
+#middle {
+  @apply(--layout-horizontal);
+  @apply(--layout-flex);
+}
+#footer {
+ border-top: 1px solid #444;
+}
+#leftsidebar {
+  overflow: auto;
+  @apply(--layout-vertical);
+}
+#center {
+  @apply(--layout-flex);
+  @apply(--layout-horizontal);
+  overflow: hidden;
+}
+#viewport {
+  @apply(--layout-flex);
+}
+#rightsidebar {
+  @apply(--layout-vertical);
+  overflow: auto;
+  width: 340px;
+}
+
+:host([playing]) #header,
+:host([playing]) #footer,
+:host([playing]) #leftsidebar,
+:host([playing]) #rightsidebar  {
+  display: none;
+}
+
+io-options {
+  display: inline-block;
+  padding: 0.2em 0.4em;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  outline: 0 !important;
+}
+
+io-help-line {
+  background: #444;
+  font-size: 13px;
+  line-height: 16px;
+  height: 18px;
+  padding: 0.25em 0.5em;
+  font-weight: lighter;
+  color: #ccc;
+  letter-spacing: 0.1em;
+}

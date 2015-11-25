@@ -1,0 +1,30 @@
+:host {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  display: block;
+}
+
+iron-icon {
+  display: block;
+  background: #444;
+  color: #ddd;
+  border-radius: 2px;
+  margin: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  width: 22px !important;
+  height: 22px !important;
+}
+
+:host(:hover) iron-icon,
+:host(.iron-selected) iron-icon {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: #999;
+  color: white;
+}

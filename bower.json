@@ -14,7 +14,17 @@
     "**/.*"
   ],
   "dependencies": {
+    "polymer": "Polymer/polymer#~1.2.2",
     "carbon.js": "arodic/carbon.js#~0.0.2",
-    "three-js": "arodic/three-js#~1.2.2"
+    "three-js": "arodic/three-js#~1.2.2",
+    "three-viewport": "arodic/three-viewport#~1.2.2",
+    "three-renderer": "arodic/three-renderer#~1.2.2",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.2.1",
+    "iron-selector": "PolymerElements/iron-selector#~1.0.8",
+    "iron-icons": "PolymerElements/iron-icons#~1.0.5",
+    "io-options": "arodic/io-options#~1.2.2",
+    "io-inspector": "arodic/io-inspector#~1.2.2",
+    "io-help": "arodic/io-help#~1.2.2",
+    "io-boolean": "arodic/io-boolean#~1.2.2"
   }
 }

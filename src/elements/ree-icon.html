@@ -1,0 +1,19 @@
+<link rel="import" href="../../../polymer/polymer.html">
+<link rel="import" href="../../../iron-icons/iron-icons.html">
+
+<dom-module id="ree-icon">
+  <link rel="import" type="css" href="ree-icon.css">
+  <template>
+    <iron-icon icon="{{icon}}"></iron-icon>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'ree-icon',
+    properties: {
+      icon: {
+        type: String
+      }
+    }
+  });
+</script>

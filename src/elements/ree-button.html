@@ -1,0 +1,43 @@
+<link rel="import" href="../../../polymer/polymer.html">
+<link rel="import" href="ree-icon.html">
+
+<dom-module id="ree-button">
+  <link rel="import" type="css" href="ree-button.css">
+  <template>
+    <ree-icon icon="{{icon}}"></ree-icon>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'ree-button',
+    properties: {
+      value: {
+        type: Boolean,
+        notify: true,
+        observer: '_update'
+      },
+      true: {
+        type: String,
+        observer: '_update'
+      },
+      false: {
+        type: String,
+        observer: '_update'
+      },
+      icon: {
+        type: String
+      },
+    },
+    listeners: {
+      'click': 'toggle',
+    },
+    toggle: function() {
+      if (typeof this.value === 'boolean') {
+        this.value = !this.value;
+      }
+    },
+    _update: function() {
+      this.icon = this.value ? this.true : this.false;
+    }
+  });
+</script>

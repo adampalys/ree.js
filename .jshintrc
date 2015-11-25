@@ -12,9 +12,10 @@
   "quotmark": "single",
   "undef": true,
   "unused": true,
-  "newcap": true,
+  "newcap": false,
   "maxlen": 0,
   "globals": {
+    "Polymer": true,
     "Carbon": true,
     "REE": true,
     "THREE": true,
