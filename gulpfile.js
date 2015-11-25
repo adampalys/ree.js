@@ -11,21 +11,8 @@
   var browserSync = require('browser-sync');
   var reload = browserSync.reload;
 
-  // Clean output directory
   gulp.task('clean', function(cb) {
     del(['build'], cb);
-  });
-
-  gulp.task('copy-demo', function(cb) {
-    gulp.src(['src/demo/**/*'])
-    .pipe(gulp.dest('build/demo'))
-    .on('end', cb);
-  });
-
-  gulp.task('copy-wc', function(cb) {
-    gulp.src(['src/components/webcomponentsjs/*'])
-    .pipe(gulp.dest('build/components/webcomponentsjs'))
-    .on('end', cb);
   });
 
   gulp.task('vulcanize', function() {
@@ -38,11 +25,6 @@
       .on('error', function(e) {
         console.log(e);
       })
-      // .pipe($.minifyInline())
-      // .pipe($.crisper({
-      //   scriptInHead: false,
-      //   onlySplit: false
-      // }))
       .pipe(gulp.dest('build'))
       .pipe($.size({title: 'vulcanize'}));
   });
@@ -91,13 +73,10 @@
       'lint',
       'clean',
       'vulcanize',
-      'copy-demo',
-      'copy-wc',
       cb
     );
   });
 
-  // Build production files, the default task
   gulp.task('default', ['build']);
 
 }());
