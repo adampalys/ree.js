@@ -9,7 +9,6 @@
   REE.ControlsState = function(config) {
 
     Carbon.call(this, config);
-    // REE.Element.prototype.extend(this, config);
 
     Object.defineProperties(this, {
       '_name': {value: '', writable: true}

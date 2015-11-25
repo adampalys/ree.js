@@ -569,7 +569,7 @@
 
   REE.Control.prototype.dispose = function() {
 
-    REE.Element.prototype.dispose.call(this);
+    Carbon.Element.prototype.dispose.call(this);
 
     this.enabled = false;
     this.active = false;

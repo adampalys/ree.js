@@ -47,7 +47,6 @@
   REE.CamerasState = function(config) {
 
     Carbon.call(this, config);
-    // REE.Element.prototype.extend(this, config);
 
     this.registerProperties({
       persp: {
