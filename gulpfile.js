@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   /* globals require, console */
 
@@ -12,70 +12,48 @@
   var reload = browserSync.reload;
 
   // Clean output directory
-  gulp.task('clean', function (cb) {
-    del(['dist', '.temp'], cb);
+  gulp.task('clean', function(cb) {
+    del(['build'], cb);
   });
 
-  gulp.task('copy', function (cb) {
-    gulp.src(['../../bower_components/**/*'])
-    .pipe(gulp.dest('.temp'))
-    .on('end', function(){
-      gulp.src(['src/**/*'])
-      .pipe(gulp.dest('.temp/ree.js/src'))
-      .on('end', cb);
-    });
-  });
-
-  gulp.task('copy-demo', function (cb) {
+  gulp.task('copy-demo', function(cb) {
     gulp.src(['src/demo/**/*'])
-    .pipe(gulp.dest('dist/demo'))
+    .pipe(gulp.dest('build/demo'))
     .on('end', cb);
   });
 
-  // Vulcanize granular configuration
-  gulp.task('vulcanize', function () {
-    return gulp.src([
-      '.temp/ree.js/src/ree-app.html'
-    ])
-    .pipe($.vulcanize({
-      stripComments: true,
-      inlineCss: true,
-      inlineScripts: true
-    }))
-    .on('error', function(e) {
-      console.log(e);
-    })
-    .pipe($.minifyInline())
-    .pipe($.crisper({
-      scriptInHead: false,
-      onlySplit: false
-    }))
-    .pipe(gulp.dest('dist'))
-    .pipe($.size({title: 'vulcanize'}));
+  gulp.task('copy-wc', function(cb) {
+    gulp.src(['src/components/webcomponentsjs/*'])
+    .pipe(gulp.dest('build/components/webcomponentsjs'))
+    .on('end', cb);
   });
 
-  // Commit to dist branch
-  gulp.task('dist', function () {
-    return gulp.src([
-      'dist/**/*',
-      'README.md',
-      'LICENSE'
-    ])
-    .pipe($.ghPages({ branch: 'dist', force: true }));
+  gulp.task('vulcanize', function() {
+    return gulp.src('src/ree-app.html')
+      .pipe($.vulcanize({
+        stripComments: true,
+        inlineCss: true,
+        inlineScripts: true
+      }))
+      .on('error', function(e) {
+        console.log(e);
+      })
+      // .pipe($.minifyInline())
+      // .pipe($.crisper({
+      //   scriptInHead: false,
+      //   onlySplit: false
+      // }))
+      .pipe(gulp.dest('build'))
+      .pipe($.size({title: 'vulcanize'}));
   });
 
-  // Lint JavaScript
   gulp.task('lint', function() {
     return gulp.src([
       'src/**/*.js',
       'src/**/*.html',
+      '!src/components/**/*',
+      'gulpfile.js'
       ])
-      .pipe(reload({
-        stream: true,
-        once: true
-      }))
-
-    // JSCS has not yet a extract option
     .pipe($.if('*.html', $.htmlExtract()))
     .pipe($.jshint())
     .pipe($.jscs())
@@ -84,25 +62,37 @@
     .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
   });
 
-  gulp.task('watch', function () {
+  gulp.task('serve', function() {
+    browserSync({
+      port: 5000,
+      notify: false,
+      open: false,
+      logPrefix: 'PSK',
+      snippetOptions: {
+        rule: {
+          match: '<span id="browser-sync-binding"></span>',
+          fn: function(snippet) {
+            return snippet;
+          }
+        }
+      },
+      server: {
+        baseDir: ['src']
+      }
+    });
 
-    gulp.watch([
-      'src/**/*.js',
-      'src/**/*.html'],
-      ['build']
-    );
-
-    runSequence('build');
-
+    gulp.watch(['src/**/*.html'], reload);
+    gulp.watch(['src/**/*.css'], reload);
+    gulp.watch(['src/**/*.js'], reload);
   });
 
-  gulp.task('build', function (cb) {
+  gulp.task('build', function(cb) {
     runSequence(
       'lint',
       'clean',
-      'copy',
       'vulcanize',
       'copy-demo',
+      'copy-wc',
       cb
     );
   });
