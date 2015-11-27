@@ -11,8 +11,8 @@
   var browserSync = require('browser-sync');
   var reload = browserSync.reload;
 
-  gulp.task('clean', function(cb) {
-    del(['build'], cb);
+  gulp.task('clean', function() {
+    del(['build']);
   });
 
   gulp.task('vulcanize', function() {
@@ -22,9 +22,6 @@
         inlineCss: true,
         inlineScripts: true
       }))
-      .on('error', function(e) {
-        console.log(e);
-      })
       .pipe(gulp.dest('build'))
       .pipe($.size({title: 'vulcanize'}));
   });
