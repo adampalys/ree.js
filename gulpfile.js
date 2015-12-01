@@ -21,6 +21,7 @@
     return gulp.src([
       'app/**/*.js',
       'app/**/*.html',
+      '!app/bower_components/**/*',
       'gulpfile.js'
       ])
     .pipe($.if('*.html', $.htmlExtract()))
@@ -39,7 +40,7 @@
         inlineScripts: true
       }))
       .pipe(gulp.dest(DIST))
-      .pipe($.size({title: 'vulcanize'})).on('end', function () {
+      .pipe($.size({title: 'vulcanize'})).on('end', function() {
         gulp.src([
           'app/index.html',
           'app/**/webcomponents-lite.min.js'

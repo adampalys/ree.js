@@ -189,7 +189,6 @@
         return;
       }
 
-
       scope.domElement = event.path[0];
       scope.camera = getViewport(event.path).camera;
 
@@ -217,7 +216,6 @@
       }
 
       pointers = getPointersFromEvent(event);
-
 
       if (typeof scope.onTrack === 'function') {
         scope.onTrack(event, pointers);
