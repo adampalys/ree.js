@@ -1,6 +1,6 @@
 (function() {
 
-  /* globals require, console */
+  /* globals require */
 
   'use strict';
 
@@ -11,26 +11,16 @@
   var browserSync = require('browser-sync');
   var reload = browserSync.reload;
 
-  gulp.task('clean', function() {
-    del(['build']);
-  });
+  var DIST = 'dist';
 
-  gulp.task('vulcanize', function() {
-    return gulp.src('src/ree-app.html')
-      .pipe($.vulcanize({
-        stripComments: true,
-        inlineCss: true,
-        inlineScripts: true
-      }))
-      .pipe(gulp.dest('build'))
-      .pipe($.size({title: 'vulcanize'}));
+  gulp.task('clean', function() {
+    del([DIST]);
   });
 
   gulp.task('lint', function() {
     return gulp.src([
-      'src/**/*.js',
-      'src/**/*.html',
-      '!src/components/**/*',
+      'app/**/*.js',
+      'app/**/*.html',
       'gulpfile.js'
       ])
     .pipe($.if('*.html', $.htmlExtract()))
@@ -39,6 +29,23 @@
     .pipe($.jscsStylish.combineWithHintResults())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
+  });
+
+  gulp.task('vulcanize', function() {
+    return gulp.src('app/ree-app.html')
+      .pipe($.vulcanize({
+        stripComments: true,
+        inlineCss: true,
+        inlineScripts: true
+      }))
+      .pipe(gulp.dest(DIST))
+      .pipe($.size({title: 'vulcanize'})).on('end', function () {
+        gulp.src([
+          'app/index.html',
+          'app/**/webcomponents-lite.min.js'
+        ]).pipe(gulp.dest(DIST));
+      }
+    );
   });
 
   gulp.task('serve', function() {
@@ -56,13 +63,14 @@
         }
       },
       server: {
-        baseDir: ['src']
+        baseDir: ['app']
       }
     });
 
-    gulp.watch(['src/**/*.html'], reload);
-    gulp.watch(['src/**/*.css'], reload);
-    gulp.watch(['src/**/*.js'], reload);
+    gulp.watch(['app/**/*.html'], reload);
+    gulp.watch(['app/**/*.css'], reload);
+    gulp.watch(['app/**/*.js'], reload);
+
   });
 
   gulp.task('build', function(cb) {

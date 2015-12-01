@@ -116,7 +116,7 @@
       return new THREE.Vector2(
         (x - rect.left) / rect.width * 2 - 1,
         1 - (y - rect.top) / rect.height * 2
-    );
+      );
     };
 
     var getClosestPointer = function(point, array) {
@@ -183,14 +183,15 @@
         return;
       }
 
-      viewport = getViewport(event.path[0]);
+      viewport = getViewport(event.path);
 
       if (!viewport) {
         return;
       }
 
+
       scope.domElement = event.path[0];
-      scope.camera = getViewport(event.path[0]).camera;
+      scope.camera = getViewport(event.path).camera;
 
       pointers = getPointersFromEvent(event, true);
 
@@ -216,6 +217,7 @@
       }
 
       pointers = getPointersFromEvent(event);
+
 
       if (typeof scope.onTrack === 'function') {
         scope.onTrack(event, pointers);
@@ -254,7 +256,7 @@
         return;
       }
 
-      viewport = getViewport(event.path[0]);
+      viewport = getViewport(event.path);
 
       if (!viewport) {
         return;
@@ -281,7 +283,7 @@
         return;
       }
 
-      viewport = getViewport(event.path[0]);
+      viewport = getViewport(event.path);
 
       if (!viewport) {
         return;
@@ -361,7 +363,7 @@
 
     function onMousewheel(event) {
 
-      viewport = getViewport(event.path[0]);
+      viewport = getViewport(event.path);
 
       if (!viewport) {
         return;
@@ -389,7 +391,7 @@
 
     function onKeydown(event) {
 
-      viewport = getViewport(event.path[0]);
+      viewport = getViewport(event.path);
 
       if (!viewport) {
         return;
@@ -411,7 +413,7 @@
 
     function onKeyup(event) {
 
-      viewport = getViewport(event.path[0]);
+      viewport = getViewport(event.path);
 
       if (!viewport) {
         return;
@@ -433,7 +435,7 @@
 
     function onContextmenu(event) {
 
-      viewport = getViewport(event.path[0]);
+      viewport = getViewport(event.path);
 
       if (!viewport) {
         return;
@@ -451,11 +453,15 @@
 
     }
 
-    function getViewport(domElement) {
+    function getViewport(path) {
 
-      return scope._viewports.find(function(e) {
-        return e.domElement === domElement;
-      });
+      for (var i = 0; i < path.length; i++) {
+        for (var j = 0; j < scope._viewports.length; j++) {
+          if (scope._viewports[j].domElement === path[i]) {
+            return scope._viewports[j];
+          }
+        }
+      }
 
     }
 
